@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2019 www.idefav.com Inc. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idefav.auth.server.dao.UserMapperEx">
+    <resultMap id="BaseMapResultEx" type="userDto" extends="com.idefav.auth.server.dao.auto.UserMapper.BaseResultMap">
+        <collection property="roles" ofType="roleDto" resultMap="com.idefav.auth.server.dao.RoleMapperEx.BaseResultMapEx"/>
+    </resultMap>
+</mapper>

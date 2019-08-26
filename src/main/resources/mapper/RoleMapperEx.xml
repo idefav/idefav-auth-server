@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (c) 2019 www.idefav.com Inc. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idefav.auth.server.dao.RoleMapperEx">
+    <resultMap id="BaseResultMapEx" type="roleDto" extends="com.idefav.auth.server.dao.auto.RoleMapper.BaseResultMap">
+        <id column="role_id" javaType="long" jdbcType="BIGINT" property="id"/>
+        <result column="role_name" jdbcType="VARCHAR" property="name" />
+        <result column="role_created_on" jdbcType="TIMESTAMP" property="createdOn" />
+        <result column="role_updated_on" jdbcType="TIMESTAMP" property="updatedOn" />
+        <result column="role_version" jdbcType="BIGINT" property="version" />
+        <collection property="permissions" ofType="permission" >
+            <id column="permission_id" javaType="long" jdbcType="BIGINT" property="id"/>
+            <result column="permission_name" jdbcType="VARCHAR" property="name" />
+            <result column="permission_created_on" jdbcType="TIMESTAMP" property="createdOn" />
+            <result column="permission_updated_on" jdbcType="TIMESTAMP" property="updatedOn" />
+            <result column="permission_version" jdbcType="BIGINT" property="version" />
+        </collection>
+    </resultMap>
+</mapper>

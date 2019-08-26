@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019 www.idefav.com Inc. All rights reserved.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idefav.auth.server.dao.auto.UserMapper">
+  <resultMap id="BaseResultMap" type="com.idefav.auth.server.model.auto.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="account_expired" jdbcType="BIT" property="accountExpired" />
+    <result column="credentials_expired" jdbcType="BIT" property="credentialsExpired" />
+    <result column="account_locked" jdbcType="BIT" property="accountLocked" />
+    <result column="created_on" jdbcType="TIMESTAMP" property="createdOn" />
+    <result column="updated_on" jdbcType="TIMESTAMP" property="updatedOn" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, email, enabled, account_expired, credentials_expired, account_locked, 
+    created_on, updated_on, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.idefav.auth.server.model.auto.User">
+    insert into user (id, username, password, 
+      email, enabled, account_expired, 
+      credentials_expired, account_locked, created_on, 
+      updated_on, version)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{accountExpired,jdbcType=BIT}, 
+      #{credentialsExpired,jdbcType=BIT}, #{accountLocked,jdbcType=BIT}, #{createdOn,jdbcType=TIMESTAMP}, 
+      #{updatedOn,jdbcType=TIMESTAMP}, #{version,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.idefav.auth.server.model.auto.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="accountExpired != null">
+        account_expired,
+      </if>
+      <if test="credentialsExpired != null">
+        credentials_expired,
+      </if>
+      <if test="accountLocked != null">
+        account_locked,
+      </if>
+      <if test="createdOn != null">
+        created_on,
+      </if>
+      <if test="updatedOn != null">
+        updated_on,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="accountExpired != null">
+        #{accountExpired,jdbcType=BIT},
+      </if>
+      <if test="credentialsExpired != null">
+        #{credentialsExpired,jdbcType=BIT},
+      </if>
+      <if test="accountLocked != null">
+        #{accountLocked,jdbcType=BIT},
+      </if>
+      <if test="createdOn != null">
+        #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedOn != null">
+        #{updatedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.idefav.auth.server.model.auto.User">
+    update user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="accountExpired != null">
+        account_expired = #{accountExpired,jdbcType=BIT},
+      </if>
+      <if test="credentialsExpired != null">
+        credentials_expired = #{credentialsExpired,jdbcType=BIT},
+      </if>
+      <if test="accountLocked != null">
+        account_locked = #{accountLocked,jdbcType=BIT},
+      </if>
+      <if test="createdOn != null">
+        created_on = #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedOn != null">
+        updated_on = #{updatedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.idefav.auth.server.model.auto.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=BIT},
+      account_expired = #{accountExpired,jdbcType=BIT},
+      credentials_expired = #{credentialsExpired,jdbcType=BIT},
+      account_locked = #{accountLocked,jdbcType=BIT},
+      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      updated_on = #{updatedOn,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
