@@ -111,12 +111,15 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()").allowFormAuthenticationForClients();
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
+
     @Bean
-    public AuthorizationCodeServices authorizationCodeServices(){
+    public AuthorizationCodeServices authorizationCodeServices() {
         return new RedisAuthenticationCodeServices(connectionFactory);
     }
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore(keyPair())).tokenEnhancer(jwtAccessTokenConverter(keyPair()))
@@ -129,7 +132,8 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
     @Bean
     public KeyPair keyPair() {
         if (keyPair == null)
-            this.keyPair = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "111111".toCharArray()).getKeyPair("idefav");
+            this.keyPair = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "111111".toCharArray())
+                    .getKeyPair("idefav");
         return keyPair;
     }
 
@@ -152,19 +156,20 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
                 info.put("email", user.getUser().getEmail());
                 info.put("iss", issur);
-                info.put("iat", new Date().getTime());
+                info.put("iat", new Date().getTime() / 1000);
                 info.put("sub", issur);
 
                 DefaultOAuth2AccessToken customAccessToken = new DefaultOAuth2AccessToken(accessToken);
                 customAccessToken.setAdditionalInformation(info);
                 return super.enhance(customAccessToken, authentication);
-            }else{
+            }
+            else {
                 Map<String, Object> info = new LinkedHashMap<>(accessToken.getAdditionalInformation());
 
 //                String clientId=(String) authentication.getPrincipal();
 
                 info.put("iss", issur);
-                info.put("iat", new Date().getTime());
+                info.put("iat", new Date().getTime() / 1000);
                 info.put("sub", issur);
 
 
@@ -185,7 +190,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
         @Override
         public TokenRequest createTokenRequest(Map<String, String> requestParameters,
-                                               ClientDetails authenticatedClient) {
+                ClientDetails authenticatedClient) {
             if (requestParameters.get("grant_type").equals("refresh_token")) {
                 OAuth2Authentication authentication = tokenStore.readAuthenticationForRefreshToken(
                         tokenStore.readRefreshToken(requestParameters.get("refresh_token")));
@@ -210,7 +215,9 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
         @ResponseBody
         public Map<String, Object> getKey(Principal principal) {
             RSAPublicKey publicKey = (RSAPublicKey) this.keyPair.getPublic();
-            RSAKey key = new RSAKey.Builder(publicKey).build();
+            RSAKey key = new RSAKey.Builder(publicKey)
+                    .keyID("default")
+                    .build();
             return new JWKSet(key).toJSONObject();
         }
     }

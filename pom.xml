@@ -10,7 +10,7 @@
 
     <groupId>com.idefav</groupId>
     <artifactId>idefav-auth-server</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <parent>
         <groupId>com.idefav</groupId>
@@ -91,7 +91,7 @@
                 <version>1.0.2</version>
                 <configuration>
                     <from>
-                        <image>openjdk:8u181-jdk</image>
+                        <image>openjdk:8u222-jdk</image>
                     </from>
                     <to>
                         <image>docker.dev.com:5000/${artifactId}</image>
